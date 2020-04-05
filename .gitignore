@@ -1,0 +1,31 @@
+# Chroot files
+chroot/*
+chroot.files
+chroot.packages.install
+chroot.packages.live
+# Cache
+cache/*
+.build/*
+binary/*
+# Build files
+live-image-amd64.contents
+live-image-amd64.files
+live-image-amd64.hybrid.iso
+live-image-amd64.hybrid.iso.zsync
+live-image-amd64.packages
+# Auto-generated config files
+config/apt/*
+config/archives/*
+config/binary
+config/bootstrap
+config/build
+config/chroot
+config/common
+config/debian-instalelr/*
+config/hooks/*
+config/pressed/*
+config/rootfs/*
+config/source
+config/package-lists/live.list.chroot
+# Backup files
+*~

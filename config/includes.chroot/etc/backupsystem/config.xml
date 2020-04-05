@@ -1,0 +1,10 @@
+<Configuration>
+  <rsnapshot-config-file>/etc/rsnapshot.conf</rsnapshot-config-file>
+  <mounts>
+    <backup>/mnt/backup</backup>
+    <targets>/mnt/targets</targets>
+  </mounts>
+  <backup-file>/lib/live/mount/medium/backups.xml</backup-file>
+  <luks-device-path>/dev/mapper</luks-device-path>
+  <lvm-device-path>/dev</lvm-device-path>
+</Configuration>
