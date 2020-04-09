@@ -101,6 +101,40 @@ my $backups = XMLin($config->{'backup-file'}, ForceArray => ['backup',
 							     'folder'])->{'backup'};
 
 ###########################################################
+# Remove backup configurations which cannot be done       #
+###########################################################
+
+sub isUuidDriveAvailable {
+    my ($uuid) = @_;
+    return -e "/dev/disk/by-uuid/$uuid";
+}
+
+sub isBackupDoable {
+    my ($backup) = @_;
+    return 0 if !isUuidDriveAvailable($backup->{'uuid'});
+    foreach my $folder (@{$backup->{'backup-folder'}}) {
+	foreach my $target(@{$folder->{'target'}}) {
+	    return 0 if !isUuidDriveAvailable($target->{'uuid'});
+	}
+    }
+    return 1;
+}
+
+for (my $i = 0; $i < @{$backups}; ++$i) {
+    my $backup = $$backups[$i];
+    if(!isBackupDoable($backup)) {
+	splice @$backups, $i, 1;
+	--$i;
+    }
+}
+
+# Check if there are any backup tasks left
+if(!@$backups) {
+    print "None of the configured backups can be done using the available disks.\n";
+    exit 1;
+}
+
+###########################################################
 # Decrypt hard-drives                                     #
 ###########################################################
 
