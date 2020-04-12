@@ -1,4 +1,6 @@
 #!/bin/sh
 lb config noauto \
 	--bootappend-live "boot=live live-config.keyboard-model=pc105 live-config.keyboard-layouts=de components quiet splash" \
-	"{$@}"
+	--debian-installer false \
+	--debian-installer-gui false \
+	"${@}"
