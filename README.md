@@ -44,7 +44,9 @@ lb build
 ```
 
 Between subsequent builds, the command `lb clean` should be ran to clean up the
-previous build.
+previous build. If you want to change the build configuration using
+`lb config`, you can clear the automatically generated configuration using
+`lb clean --config`.
  
 ### Creating a bootable USB drive
 If you have trouble creating the bootable USB-drive, take a look at [Will

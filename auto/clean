@@ -1,0 +1,30 @@
+#!/bin/sh
+if echo "${@}" | grep -w -- --config > /dev/null
+then
+	echo "Cleaning auto-generated config files"
+	# Clean config directory
+	rm -f config/binary \
+	      config/bootstrap \
+	      config/build \
+	      config/chroot \
+	      config/common \
+	      config/source
+	# Clean auto generated package-lists
+	rm -f config/package-lists/live.list.chroot
+	# Do nothing else if the only given option is --config
+	if [ "$@" = "--config" ]
+	then
+		exit
+	fi
+	# Remove config option from $@
+	for arg
+	do
+		shift
+		case $arg in
+			--config) ;;
+			*) set -- "$@" "$arg";;
+		esac
+	done
+fi
+lb clean noauto \
+	"${@}"
