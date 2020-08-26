@@ -29,3 +29,5 @@ config/source
 config/package-lists/live.list.chroot
 # Backup files
 *~
+# The state file for the Docker image for building the backup system
+builder

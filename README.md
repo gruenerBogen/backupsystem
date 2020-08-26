@@ -32,22 +32,44 @@ This building instruction was tested on a Debian Buster machine.
 
 ### Prerequisites
 You need the following software for installation:
- - live-build
+  * live-build
+  * make
+
+Alternatively, you can use a docker image to build Backup System. In that
+case, you will need
+  * docker
+  * make
 
 ### Building an ISO image
 Make sure to setup the configuration correctly. See the Configuration section
-for details. Then you can build the image by running the following commands
+for details. Then you can build the image by running the following command
 
 ```Shell
-lb config
-lb build
+make iso
 ```
 
-Between subsequent builds, the command `lb clean` should be ran to clean up the
-previous build. If you want to change the build configuration using
-`lb config`, you can clear the automatically generated configuration using
-`lb clean --config`.
- 
+Between subsequent builds, the command `make clean` should be ran to clean up the
+previous build. If you want to clean all automatically generated files, run
+`make clean-all`.
+
+### Building using Docker
+To build Backup System using Docker, you can prefix the make targets from
+above with the prefix `builder-`. For example, if you want to create the ISO
+image version you can run `make builder-iso`.
+
+To build the docker image which is used for building Backup System you can run
+`make builder`. If the docker image is non existent when running any of the
+build commands using docker, the image is automatically created. To keep track
+on the build status of the docker image, the (empty) state file `builder` is
+created. Its presence indicates that the docker image has been built. Thus, if
+you need to rebuild the docker image, delete the file `builder` in the project
+root folder.
+
+You can run the docker image interactively by running `make run`.
+
+Note: Sometimes the build using docker fails. It can help to just try again
+without changing anything.
+
 ### Creating a bootable USB drive
 If you have trouble creating the bootable USB-drive, take a look at [Will
 Haley's Debian live Linux building
@@ -61,6 +83,7 @@ root directory of the live medium. If you are using the ISO export, you should
 copy the `backup.xml` file to the folder `config/includes.binary` prior to a
 build. This deploys the file into the root directory of the generated ISO
 image.
+
 ### Keyboard Configuration
 The keyboard configuration can be altered in two different ways. If the backup
 system is a bootable USB drive, you can edit the boot prompt inside the
